@@ -1,25 +1,25 @@
-arr = [3, 2, 1, 13, 8, 5, 0, 1]
+arr = [105, 79, 100, 110]
 
 def merge(arr_a, arr_b)
-  i = 0
-  j = 0
-  k = 0
-  arr_c = []
-  while i < arr_a.length && j < arr_b.length
-    if arr_a[i] < arr_b[j]
-      arr_c[k] = arr_a[i]
-      i += 1
+  result = []
+  until arr_a.empty? || arr_b.empty?
+    if arr_a[0] > arr_b[0]
+      result << arr_b[0]
+      arr_b.shift
     else
-      arr_c[k] = arr_b[j]
-      j += 1
+      result << arr_a[0]
+      arr_a.shift
     end
-    k += 1
   end
-  arr_c[k] = arr_a[i] if i < arr_a.length
-  arr_c[k] = arr_a[j] if j < arr_b.length
-  arr_c
+  result << arr_a[0] if arr_b.empty?
+  result << arr_b[0] if arr_a.empty?
+  result
 end
 
-arr_a = [1, 3, 10, 20]
-arr_b = [2, 6, 12, 15]
-p merge(arr_a, arr_b)
+def merge_sort(array)
+  return array if array.length < 2
+  mid = (array.length / 2)
+  merge(merge_sort(array[0...mid]), merge_sort(array[mid..])) 
+end
+
+p merge_sort(arr)
